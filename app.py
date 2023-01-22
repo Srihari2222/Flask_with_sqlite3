@@ -56,11 +56,10 @@ def login():
         connection = sqlite3.connect("login.db")
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM Emails WHERE Email = '{e}'".format(e=email))
-        search = cursor.fetchone()
-        print(search, type(pas),type(search[3]))
+        search = cursor.fetchall()
         connection.commit()
         connection.close()
-        if not search:
+        if len(search)==0:
             return render_template("login.html", pwd="Please Enter Valid Email")
         elif pas!=search[3]:
             return render_template("login.html",pwd="Please Enter Correct Password")
