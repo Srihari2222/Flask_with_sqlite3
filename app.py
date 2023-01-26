@@ -56,7 +56,7 @@ def login():
         connection = sqlite3.connect("login.db")
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM Emails WHERE Email = '{e}'".format(e=email))
-        search = cursor.fetchall()
+        search = cursor.fetchone()
         connection.commit()
         connection.close()
         if len(search)==0:
@@ -85,7 +85,6 @@ def signup_success(sss):
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM Emails WHERE Email = '{s}'".format(s=sss))
         search = cursor.fetchone()
-        print(search)
         connection.commit()
         connection.close()
         return render_template("signupsuccess.html",name = search[1])
